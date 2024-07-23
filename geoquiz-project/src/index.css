@@ -1,1 +1,9 @@
+@import "./vars.css";
+
+*{
+    background-color: var(--color-bg);
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
 
