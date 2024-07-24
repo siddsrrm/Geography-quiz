@@ -1,15 +1,13 @@
 import styles from './App.module.css'
-import { HashRouter as Router, Routes, Route } from 'react-router-dom'
-import { Home } from "./Pages/HomePage/Home"
+import { HashRouter as Router} from 'react-router-dom'
+import AnimatedRoutes from './Components/AnimatedRoutes'
 
 
 function App() {
 
   return (
     <Router>
-      <Routes>
-        <Route path="/" element={<Home/>}/>
-      </Routes>
+      <AnimatedRoutes/>
     </Router>
   )
   
