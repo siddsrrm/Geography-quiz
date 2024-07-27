@@ -10,7 +10,6 @@ import { FlagsMenuBtn } from '../../Components/FlagsMenuBtn/FlagsMenuBtn'
 export const Menu = () => {
   return (
     <motion.div 
-        className={styles.container}
         initial={{opacity:0, y:100}}
         animate={{opacity: 1, y:0}}
         transition={{duration: 1, ease:"easeOut", delay:0.2}}
@@ -19,8 +18,12 @@ export const Menu = () => {
         <Link to="/">
           <BackArrow/> 
         </Link>
-        <CapitalsMenuBtn/>
-        <FlagsMenuBtn/>
+
+        <div className={styles.buttonscontainer}>
+          <CapitalsMenuBtn/>
+          <FlagsMenuBtn/>
+        </div>
+        
        
             
     </motion.div>
