@@ -3,6 +3,7 @@ import { Routes, Route, useLocation } from 'react-router-dom'
 import { Home } from '../Pages/HomePage/Home'
 import { Menu } from '../Pages/MenuPage/Menu'
 import { CapitalsQuiz } from '../Pages/CapitalsQuizPage/CapitalsQuiz'
+import { FlagsQuiz } from '../Pages/FlagsQuizPage/FlagsQuiz'
 import { AnimatePresence } from 'framer-motion'
 
 
@@ -15,6 +16,7 @@ function AnimatedRoutes() {
             <Route path="/" element={<Home/>}/>
             <Route path="/Menu" element={<Menu/>}/>
             <Route path="/CapitalsQuiz" element={<CapitalsQuiz/>}/>
+            <Route path="/FlagsQuiz" element={<FlagsQuiz/>}/>
         </Routes>
     </AnimatePresence>
     

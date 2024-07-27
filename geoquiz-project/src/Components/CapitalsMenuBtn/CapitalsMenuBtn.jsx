@@ -9,7 +9,5 @@ export const CapitalsMenuBtn = () => {
         <h2 className={styles.title}>Capitals</h2>
       </div>
     </Link>
-    
-    
   ) 
 }

@@ -4,6 +4,7 @@ import styles from "./Menu.module.css"
 import { BackArrow } from '../../Components/BackArrow/BackArrow'
 import { Link } from 'react-router-dom'
 import { CapitalsMenuBtn } from '../../Components/CapitalsMenuBtn/CapitalsMenuBtn'
+import { FlagsMenuBtn } from '../../Components/FlagsMenuBtn/FlagsMenuBtn'
 
 
 export const Menu = () => {
@@ -19,6 +20,7 @@ export const Menu = () => {
           <BackArrow/> 
         </Link>
         <CapitalsMenuBtn/>
+        <FlagsMenuBtn/>
        
             
     </motion.div>
