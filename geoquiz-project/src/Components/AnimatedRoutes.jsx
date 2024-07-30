@@ -5,6 +5,7 @@ import { Menu } from '../Pages/MenuPage/Menu'
 import { CapitalsQuiz } from '../Pages/CapitalsQuizPage/CapitalsQuiz'
 import { FlagsQuiz } from '../Pages/FlagsQuizPage/FlagsQuiz'
 import { AnimatePresence } from 'framer-motion'
+import { jsQuizz } from '../constants'
 
 
 function AnimatedRoutes() {
@@ -15,7 +16,7 @@ function AnimatedRoutes() {
         <Routes location={location} key={location.pathname}>
             <Route path="/" element={<Home/>}/>
             <Route path="/Menu" element={<Menu/>}/>
-            <Route path="/CapitalsQuiz" element={<CapitalsQuiz/>}/>
+            <Route path="/CapitalsQuiz" element={<CapitalsQuiz questions={jsQuizz.questions}/>}/>
             <Route path="/FlagsQuiz" element={<FlagsQuiz/>}/>
         </Routes>
     </AnimatePresence>
