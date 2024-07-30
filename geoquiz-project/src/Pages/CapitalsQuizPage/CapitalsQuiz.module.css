@@ -10,5 +10,36 @@
 
 }
 
+.questionnum {
+    font-size: 25px;
+}
+
+ul {
+    margin-top: 20px;
+    margin-left: 10px;
+
+    li {
+        text-decoration: none;
+        list-style: none;
+        font-size: 20px;
+        background-color: black;
+        color:white;
+        border: 1px solid gray;
+        border-radius: 25px;
+        padding: 11px;
+        margin-top: 15px;
+        cursor: pointer;
+    }
+
+    .correctanswer{
+        background-color: green;
+    }
+    .incorrectanswer{
+        background-color: red;
+    }
+
+}
+
+
 
 
