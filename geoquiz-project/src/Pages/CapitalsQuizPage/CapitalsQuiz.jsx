@@ -27,6 +27,10 @@ export const CapitalsQuiz = ({ questions }) => {
     }
   }
 
+  const onClickNext = () => {
+    
+  }
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 100 }}
@@ -56,6 +60,11 @@ export const CapitalsQuiz = ({ questions }) => {
             );
           })}
         </ul>
+        <div className={styles.buttonContainer}>
+          <button onClick={onClickNext} disabled={isAnswered === false} className={styles.button}>
+            {currentQuestion === questions.length - 1 ? "Finish" : "Next"}
+          </button>
+        </div>
       </>
     </motion.div>
   )
