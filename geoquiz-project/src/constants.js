@@ -49,3 +49,7 @@ export const jsQuizz = {
       },
     ],
   };
+
+  export const resultInitialState = {
+    correctAnswers: 0
+  }
