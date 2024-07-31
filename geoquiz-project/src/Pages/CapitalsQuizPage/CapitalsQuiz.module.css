@@ -63,4 +63,16 @@ ul {
     cursor:not-allowed;
 }
 
+.result {
+    text-align: center;
+
+    h3 {
+        font-size: 35px;
+    }
+
+    p {
+        font-size: 25px;
+        margin-top: 10px;
+    }
+}
 
