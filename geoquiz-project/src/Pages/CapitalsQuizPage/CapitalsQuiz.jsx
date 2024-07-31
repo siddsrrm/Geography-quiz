@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import styles from "./CapitalsQuiz.module.css";
 import { useState } from 'react';
 import { resultInitialState } from '../../constants';
+import { Link } from 'react-router-dom'
 
 export const CapitalsQuiz = ({ questions }) => {
   const [currentQuestion, setCurrentQuestion] = useState(0); 
@@ -28,7 +29,7 @@ export const CapitalsQuiz = ({ questions }) => {
       setAnswer(false);
       console.log("incorrect");
     }
-  };
+  }
 
   const onClickNext = () => {
     setAnswerIndex(null);
@@ -45,7 +46,13 @@ export const CapitalsQuiz = ({ questions }) => {
       setCurrentQuestion(0);
       setShowResult(true);
     }
-  };
+  }
+
+  const onTryAgain = () => {
+    setResult(resultInitialState);
+    setShowResult(false);
+  }
+
 
   return (
     <motion.div
@@ -89,6 +96,10 @@ export const CapitalsQuiz = ({ questions }) => {
           <p>
             You got <span>{result.correctAnswers}</span> out of <span>{questions.length}</span> questions correct!
           </p>
+          <button className={styles.playagainbutton} onClick={onTryAgain}>Play again</button>
+          <Link to="/Menu">
+            <button className={styles.menubutton}>Menu</button>
+          </Link>
           
         </div>
       )}

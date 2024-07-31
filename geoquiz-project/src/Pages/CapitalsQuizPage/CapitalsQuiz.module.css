@@ -76,3 +76,33 @@ ul {
     }
 }
 
+.playagainbutton, .menubutton {
+    background-color: black;
+    color: white;
+    border-radius: 10px;
+    font-size: 20px;
+    outline: none;
+    border: none;
+    margin-top: 20px;
+}
+
+.menubutton {
+    padding: 7px 30px;
+    height: 40px;
+    transition: transform 0.3s ease;
+}
+
+.menubutton:hover {
+    transform: scale(1.1);
+}
+
+.playagainbutton {
+    padding: 8px 10px;
+    margin-right: 20px;
+    transition: transform 0.3s ease;
+}
+
+.playagainbutton:hover {
+    transform: scale(1.1);
+}
+
