@@ -8,13 +8,15 @@ import { useQuery } from 'react-query';
 const fetchCountries = async () => {
   const response = await fetch('https://restcountries.com/v3.1/all');
   const data = await response.json();
-  // Filter out non-independent territories
+  
   const officialCountries = data.filter(country => country.independent);
   return officialCountries;
 }
 
 const formatQuizData = (countries) => {
-  return countries.map((country) => {
+  const shuffledCountries = [...countries].sort(() => 0.5 - Math.random());
+
+  return shuffledCountries.map((country) => {
     const choices = countries
       .sort(() => 0.5 - Math.random())
       .slice(0, 3)
@@ -37,18 +39,23 @@ export const CapitalsQuiz = () => {
   const [isAnswered, setIsAnswered] = useState(false);
   const [result, setResult] = useState(resultInitialState);
   const [showResult, setShowResult] = useState(false);
+  const [questions, setQuestions] = useState([]);
 
   const { data: countries, isLoading, error } = useQuery('countries', fetchCountries, {
     staleTime: 60000,
   });
-
-  const [questions, setQuestions] = useState([]);
 
   useEffect(() => {
     if (countries) {
       setQuestions(formatQuizData(countries));
     }
   }, [countries]);
+
+  useEffect(() => {
+    if (showResult) {
+      setQuestions(formatQuizData(countries));
+    }
+  }, [showResult, countries]);
 
   if (isLoading) {
     return <div>Loading...</div>;
@@ -58,12 +65,6 @@ export const CapitalsQuiz = () => {
     return <div>Error Loading Data</div>;
   }
 
-  if (!questions.length) {
-    return <div>Loading quiz...</div>;
-  }
-
-  const { question, choices, correctAnswer } = questions[currentQuestion];
-
   const onAnswerClick = (selectedAnswer, index) => {
     if (isAnswered) {
       return;
@@ -71,7 +72,7 @@ export const CapitalsQuiz = () => {
 
     setAnswerIndex(index);
     setIsAnswered(true);
-    setAnswer(selectedAnswer === correctAnswer);
+    setAnswer(selectedAnswer === questions[currentQuestion].correctAnswer);
   }
 
   const onClickNext = () => {
@@ -95,6 +96,12 @@ export const CapitalsQuiz = () => {
     setShowResult(false);
     setCurrentQuestion(0);
   }
+
+  if (!questions.length) {
+    return <div>Loading questions...</div>;
+  }
+
+  const { question, choices, correctAnswer } = questions[currentQuestion];
 
   return (
     <motion.div
@@ -145,5 +152,5 @@ export const CapitalsQuiz = () => {
         </div>
       )}
     </motion.div>
-  );
+  )
 }

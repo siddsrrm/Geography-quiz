@@ -16,7 +16,7 @@ function AnimatedRoutes() {
         <Routes location={location} key={location.pathname}>
             <Route path="/" element={<Home/>}/>
             <Route path="/Menu" element={<Menu/>}/>
-            <Route path="/CapitalsQuiz" element={<CapitalsQuiz questions={jsQuizz.questions}/>}/>
+            <Route path="/CapitalsQuiz" element={<CapitalsQuiz/>}/>
             <Route path="/FlagsQuiz" element={<FlagsQuiz/>}/>
         </Routes>
     </AnimatePresence>
