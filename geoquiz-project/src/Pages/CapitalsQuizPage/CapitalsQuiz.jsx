@@ -17,11 +17,13 @@ const formatQuizData = (countries) => {
   const shuffledCountries = [...countries].sort(() => 0.5 - Math.random());
 
   return shuffledCountries.map((country) => {
-    const choices = countries
+    const otherCapitals = countries
+      .filter((c) => c.capital && c.capital[0] && c.name.common !== country.name.common)
       .sort(() => 0.5 - Math.random())
       .slice(0, 3)
-      .map((c) => c.capital?.[0] || 'N/A');
-    choices.push(country.capital?.[0] || 'N/A');
+      .map((c) => c.capital[0]);
+
+    const choices = [...new Set([...otherCapitals, country.capital?.[0] || 'N/A'])];
     choices.sort(() => 0.5 - Math.random());
 
     return {
