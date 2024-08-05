@@ -1,0 +1,122 @@
+@import "../../vars.css";
+
+.container {
+    margin-left: 30%;
+    width: 500px;
+    background-color: gray;
+    border-radius: 5px;
+    margin-top: 100px;
+    padding: 30px 60px;
+}
+
+.questionnum {
+    font-size: 25px;
+    display: inline-block;
+}
+
+.totalquestionnum {
+    font-size: 25px;
+    display: inline-block;
+}
+
+.flag {
+    width: 50%;
+    height: auto; 
+    display: block; 
+    margin-bottom: 40px;
+    margin-top: 10px;
+    margin-left: 90px;
+}
+
+ul {
+    margin-top: 20px;
+    margin-left: 10px;
+
+    li {
+        text-decoration: none;
+        list-style: none;
+        font-size: 20px;
+        background-color: black;
+        color: white;
+        border: 1px solid gray;
+        border-radius: 25px;
+        padding: 11px;
+        margin-top: 15px;
+        cursor: pointer;
+    }
+
+    .correctanswer {
+        background-color: green;
+    }
+
+    .incorrectanswer {
+        background-color: red;
+    }
+}
+
+.buttonContainer {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 30px;
+    margin-right: -25px;
+}
+
+.button {
+    background-color: black;
+    color: white;
+    border-radius: 10px;
+    font-size: 20px;
+    padding: 8px 30px;
+    outline: none;
+    border: none;
+    cursor: pointer;
+}
+
+.button:disabled {
+    background-color: #9c9c9c;
+    cursor: not-allowed;
+}
+
+.result {
+    text-align: center;
+
+    h3 {
+        font-size: 35px;
+    }
+
+    p {
+        font-size: 25px;
+        margin-top: 10px;
+    }
+}
+
+.playagainbutton,
+.menubutton {
+    background-color: black;
+    color: white;
+    border-radius: 10px;
+    font-size: 20px;
+    outline: none;
+    border: none;
+    margin-top: 20px;
+}
+
+.menubutton {
+    padding: 7px 30px;
+    height: 40px;
+    transition: transform 0.3s ease;
+}
+
+.menubutton:hover {
+    transform: scale(1.1);
+}
+
+.playagainbutton {
+    padding: 8px 10px;
+    margin-right: 20px;
+    transition: transform 0.3s ease;
+}
+
+.playagainbutton:hover {
+    transform: scale(1.1);
+}
