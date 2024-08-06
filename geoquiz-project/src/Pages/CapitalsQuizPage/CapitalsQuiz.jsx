@@ -13,25 +13,31 @@ const fetchCountries = async () => {
   return officialCountries;
 }
 
+const shuffleArray = (array) => {
+  let shuffledArray = [...array];
+  for (let i = shuffledArray.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [shuffledArray[i], shuffledArray[j]] = [shuffledArray[j], shuffledArray[i]];
+  }
+  return shuffledArray;
+};
 const formatQuizData = (countries) => {
-  const shuffledCountries = [...countries].sort(() => 0.5 - Math.random());
+  const shuffledCountries = shuffleArray(countries);
 
   return shuffledCountries.map((country) => {
-    const otherCapitals = countries
-      .filter((c) => c.capital && c.capital[0] && c.name.common !== country.name.common)
-      .sort(() => 0.5 - Math.random())
-      .slice(0, 3)
-      .map((c) => c.capital[0]);
-
-    const choices = [...new Set([...otherCapitals, country.capital?.[0] || 'N/A'])];
-    choices.sort(() => 0.5 - Math.random());
+    const otherCapitals = shuffleArray(
+      countries.filter((c) => c.capital && c.capital[0] && c.name.common !== country.name.common)
+    ).slice(0, 3);
+    
+    const choices = shuffleArray([...otherCapitals.map(c => c.capital[0]), country.capital[0]]);
+    
 
     return {
       question: `What is the capital of ${country.name.common}?`,
       choices: choices,
       correctAnswer: country.capital?.[0] || 'N/A',
     };
-  }).slice(0, 6);
+  }).slice(0, 10);
 }
 
 export const CapitalsQuiz = () => {
