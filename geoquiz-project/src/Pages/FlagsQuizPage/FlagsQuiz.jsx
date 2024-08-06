@@ -1,32 +1,80 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion } from "framer-motion";
 import styles from "./FlagsQuiz.module.css";
-import { useState } from 'react';
 import { resultInitialState } from '../../constants';
-import { Link } from 'react-router-dom'
+import { Link } from 'react-router-dom';
+import { useQuery } from 'react-query';
 
-export const FlagsQuiz = ({ questions }) => {
+const fetchCountries = async () => {
+  const response = await fetch('https://restcountries.com/v3.1/all');
+  const data = await response.json();
+  
+  const officialCountries = data.filter(country => country.independent);
+  return officialCountries;
+}
+
+const formatQuizData = (countries) => {
+  const shuffledCountries = [...countries].sort(() => 0.5 - Math.random());
+
+  return shuffledCountries.map((country) => {
+    const otherCountries = countries
+      .filter((c) => c.name.common !== country.name.common)
+      .sort(() => 0.5 - Math.random())
+      .slice(0, 3)
+      .map((c) => c.name.common);
+
+    const choices = [...new Set([...otherCountries, country.name.common])];
+    choices.sort(() => 0.5 - Math.random());
+
+    return {
+      question: country.flags.png,
+      choices: choices,
+      correctAnswer: country.name.common,
+    };
+  }).slice(0, 6);
+}
+
+export const FlagsQuiz = () => {
   const [currentQuestion, setCurrentQuestion] = useState(0); 
   const [answerIndex, setAnswerIndex] = useState(null);
   const [answer, setAnswer] = useState(null);
   const [isAnswered, setIsAnswered] = useState(false);
   const [result, setResult] = useState(resultInitialState);
   const [showResult, setShowResult] = useState(false);
-  const { question, choices, correctAnswer } = questions[currentQuestion];
+  const [questions, setQuestions] = useState([]);
 
-  const onAnswerClick = (answer, index) => {
+  const { data: countries, isLoading, error } = useQuery('countries', fetchCountries, {
+    staleTime: 60000,
+  });
+
+  useEffect(() => {
+    if (countries) {
+      setQuestions(formatQuizData(countries));
+    }
+  }, [countries]);
+
+  useEffect(() => {
+    if (showResult) {
+      setQuestions(formatQuizData(countries));
+    }
+  }, [showResult, countries]);
+
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
+
+  if (error) {
+    return <div>Error Loading Data</div>;
+  }
+
+  const onAnswerClick = (selectedAnswer, index) => {
     if (isAnswered) {
       return;
     }
-    
+
     setAnswerIndex(index);
     setIsAnswered(true);
-
-    if (answer === correctAnswer) {
-      setAnswer(true);
-    } else {
-      setAnswer(false);
-    }
+    setAnswer(selectedAnswer === questions[currentQuestion].correctAnswer);
   }
 
   const onClickNext = () => {
@@ -35,13 +83,12 @@ export const FlagsQuiz = ({ questions }) => {
 
     setResult((prev) => ({
       ...prev,
-      correctAnswers: answer ? prev.correctAnswers + 1 : prev.correctAnswers
+      correctAnswers: answer ? prev.correctAnswers + 1 : prev.correctAnswers,
     }));
 
     if (currentQuestion !== questions.length - 1) {
       setCurrentQuestion((prev) => prev + 1);
     } else {
-      setCurrentQuestion(0);
       setShowResult(true);
     }
   }
@@ -49,8 +96,14 @@ export const FlagsQuiz = ({ questions }) => {
   const onTryAgain = () => {
     setResult(resultInitialState);
     setShowResult(false);
+    setCurrentQuestion(0);
   }
 
+  if (!questions.length) {
+    return <div>Loading questions...</div>;
+  }
+
+  const { question, choices, correctAnswer } = questions[currentQuestion];
 
   return (
     <motion.div
@@ -62,8 +115,8 @@ export const FlagsQuiz = ({ questions }) => {
       {!showResult ? (
         <>
           <span className={styles.questionnum}>{currentQuestion + 1}</span>
-          <span>/{questions.length}</span>
-          <img src={question} alt="Flag of france" className={styles.flag} />
+          <span className={styles.totalquestionnum}>/{questions.length}</span>
+          <img src={question} alt="Flag" className={styles.flag}/>
           <ul>
             {choices.map((choice, index) => {
               let className;
@@ -98,7 +151,6 @@ export const FlagsQuiz = ({ questions }) => {
           <Link to="/Menu">
             <button className={styles.menubutton}>Menu</button>
           </Link>
-          
         </div>
       )}
     </motion.div>
