@@ -5,6 +5,7 @@ import { BackArrow } from '../../Components/BackArrow/BackArrow'
 import { Link } from 'react-router-dom'
 import { CapitalsMenuBtn } from '../../Components/CapitalsMenuBtn/CapitalsMenuBtn'
 import { FlagsMenuBtn } from '../../Components/FlagsMenuBtn/FlagsMenuBtn'
+import { StatisticsMenuBtn } from '../../Components/StatisticsMenuBtn/StatisticsMenuBtn'
 
 
 export const Menu = () => {
@@ -18,14 +19,14 @@ export const Menu = () => {
         <Link to="/">
           <BackArrow/> 
         </Link>
-
+        <h1 className={styles.title}>Menu</h1>
         <div className={styles.buttonscontainer}>
-          <CapitalsMenuBtn/>
-          <FlagsMenuBtn/>
+          <div className={styles.buttonsrow}>
+            <CapitalsMenuBtn/>
+            <FlagsMenuBtn/>
+          </div>
+          <StatisticsMenuBtn/>
         </div>
-        
-       
-            
     </motion.div>
   )
 }
