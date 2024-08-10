@@ -3,6 +3,7 @@ import {useState, useEffect} from 'react'
 import { BackArrow } from '../../Components/BackArrow/BackArrow'
 import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
+import styles from "./Statistics.module.css"
 
 export const Statistics = () => {
     const [results, setResults] = useState([]);
@@ -34,9 +35,9 @@ export const Statistics = () => {
             </Link>
 
             <div>
-                <ul>
+                <ul className={styles.list}>
                     {results.map((result, index) =>
-                        <li key={index}>
+                        <li key={index} className={styles.listItem}>
                             {result.quiz_type} Quiz: {result.score}/{result.total_questions} on {new Date(result.date).toLocaleDateString()}
                         </li>
                     )}

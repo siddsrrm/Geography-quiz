@@ -153,7 +153,7 @@ export const CapitalsQuiz = () => {
           <span className={styles.questionnum}>{currentQuestion + 1}</span>
           <span className={styles.totalquestionnum}>/{questions.length}</span>
           <h2>{question}</h2>
-          <ul>
+          <ul className={styles.list}>
             {choices.map((choice, index) => {
               let className;
               if (isAnswered) {
@@ -164,7 +164,7 @@ export const CapitalsQuiz = () => {
                 <li
                   onClick={() => onAnswerClick(choice, index)}
                   key={choice}
-                  className={className}
+                  className={`${styles.listItem} ${className}`}
                 >
                   {choice}
                 </li>

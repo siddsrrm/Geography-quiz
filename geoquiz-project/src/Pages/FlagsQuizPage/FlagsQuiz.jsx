@@ -150,7 +150,7 @@ export const FlagsQuiz = () => {
           <span className={styles.questionnum}>{currentQuestion + 1}</span>
           <span className={styles.totalquestionnum}>/{questions.length}</span>
           <img src={question} alt="Flag" className={styles.flag}/>
-          <ul>
+          <ul className={styles.list}>
             {choices.map((choice, index) => {
               let className;
               if (isAnswered) {
@@ -161,7 +161,7 @@ export const FlagsQuiz = () => {
                 <li
                   onClick={() => onAnswerClick(choice, index)}
                   key={choice}
-                  className={className}
+                  className={`${styles.listItem} ${className}`}
                 >
                   {choice}
                 </li>

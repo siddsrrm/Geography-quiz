@@ -41,7 +41,7 @@ def get_results():
             'quiz_type': result.quiz_type,
             'score': result.score,
             'total_questions': result.total_questions,
-            'data': result.date
+            'date': result.date
         }
         for result in results
     ]
