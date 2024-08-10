@@ -33,7 +33,7 @@ def save_result():
     db.session.commit()
     return jsonify({'message': 'Result saved successfully'}), 201
 
-@app.route('/api/results', methods=['GET'])
+@app.route('/api/results/', methods=['GET'])
 def get_results():
     results = QuizResult.query.all()
     results_list = [
