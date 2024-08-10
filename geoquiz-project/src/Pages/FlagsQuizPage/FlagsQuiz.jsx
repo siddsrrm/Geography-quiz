@@ -40,6 +40,32 @@ const formatQuizData = (countries) => {
   }).slice(0, 10);
 }
 
+const saveQuizResult = async(score, totalQuestions) => {
+  try {
+    const response = await fetch('http://127.0.0.1:5000/api/results/', {
+      method: 'POST',
+      headers: {
+        'Content-Type' : 'application/json',
+      },
+      body: JSON.stringify({
+        quiz_type: 'flags',
+        score: score,
+        total_questions: totalQuestions,
+      }),
+    });
+
+    if (response.ok) {
+      console.log('Quiz result successfully saved');
+    }
+    else {
+      console.log("Error saving quiz result")
+    }
+  }
+  catch (error) {
+    console.error('Error: ', error);
+  }
+};
+
 export const FlagsQuiz = () => {
   const [currentQuestion, setCurrentQuestion] = useState(0); 
   const [answerIndex, setAnswerIndex] = useState(null);
@@ -96,6 +122,7 @@ export const FlagsQuiz = () => {
       setCurrentQuestion((prev) => prev + 1);
     } else {
       setShowResult(true);
+      saveQuizResult(result.correctAnswers, questions.length);
     }
   }
 
