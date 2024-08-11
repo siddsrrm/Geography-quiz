@@ -38,23 +38,26 @@ export const Statistics = () => {
             </Link>
 
             <div className={styles.container}>
-                <div className={styles.capitalResults}>
-                    <h3>Capital Quiz Results</h3>   
-                    {capitalResults.map(result => (
-                        <div key={result.id} className={styles.resultItem}>
-                            <p>Score: {result.score}/{result.total_questions} Date: {new Date(result.date).toLocaleDateString()}</p>
-                        </div>
-                    ))}
+                <div>
+                    <h1 className={styles.title}>Capital Quiz Results</h1>  
+                    {capitalResults.length > 0 ? ( 
+                        capitalResults.map(result => (
+                            <div key={result.id} className={styles.resultitem}>
+                                <p>Score: {result.score}/{result.total_questions} Date: {new Date(result.date).toLocaleDateString()}</p>
+                            </div>
+                        ))
+                    ) : <div className={styles.resultitem}><p>No results</p></div>}
                 </div>
                 
-                <div className={styles.flagResults}>
-                    <h3>Flag Quiz Results</h3>
-                    {flagResults.map(result => (
-                        <div key={result.id} className={styles.resultItem}>
-                            <p>Score: {result.score}/{result.total_questions} Date: {new Date(result.date).toLocaleDateString()}</p>
-                        </div>
-                    ))}
-
+                <div>
+                    <h1 className={styles.title}>Flag Quiz Results</h1>  
+                    {flagResults.length > 0 ? ( 
+                        flagResults.map(result => (
+                            <div key={result.id} className={styles.resultitem}>
+                                <p>Score: {result.score}/{result.total_questions} Date: {new Date(result.date).toLocaleDateString()}</p>
+                            </div>
+                        ))
+                    ) : <div className={styles.resultitem}><p>No results</p></div>}
                 </div>
             </div>
             

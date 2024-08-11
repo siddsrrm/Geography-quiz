@@ -1,0 +1,17 @@
+.container {
+    display:flex;
+    flex-direction: row;
+    margin-left: 15%;
+    align-items: center;
+    gap: 350px;
+    margin-top: -50px;
+    align-items: flex-start;
+}
+
+.resultitem {
+    font-size: 21px;
+    font-weight: 500;
+    border: 3px solid gray;
+    background-color: gray;
+    margin-top: 10px;
+}
