@@ -23,27 +23,41 @@ export const Statistics = () => {
     fetchResults();
   }, []);
 
+  const capitalResults = results.filter(result => result.quiz_type === 'capitals');
+  const flagResults = results.filter(result => result.quiz_type === 'flags');
+
     return (
         <motion.div 
             initial={{opacity:0, y:100}}
             animate={{opacity: 1, y:0}}
             transition={{duration: 1, ease:"easeOut", delay:0.2}}
         >
-    
+
             <Link to="/Menu">
-              <BackArrow/> 
+                <BackArrow/> 
             </Link>
 
-            <div>
-                <ul className={styles.list}>
-                    {results.map((result, index) =>
-                        <li key={index} className={styles.listItem}>
-                            {result.quiz_type} Quiz: {result.score}/{result.total_questions} on {new Date(result.date).toLocaleDateString()}
-                        </li>
-                    )}
-                </ul>
+            <div className={styles.container}>
+                <div className={styles.capitalResults}>
+                    <h3>Capital Quiz Results</h3>   
+                    {capitalResults.map(result => (
+                        <div key={result.id} className={styles.resultItem}>
+                            <p>Score: {result.score}/{result.total_questions} Date: {new Date(result.date).toLocaleDateString()}</p>
+                        </div>
+                    ))}
+                </div>
+                
+                <div className={styles.flagResults}>
+                    <h3>Flag Quiz Results</h3>
+                    {flagResults.map(result => (
+                        <div key={result.id} className={styles.resultItem}>
+                            <p>Score: {result.score}/{result.total_questions} Date: {new Date(result.date).toLocaleDateString()}</p>
+                        </div>
+                    ))}
+
+                </div>
             </div>
-           
+            
         </motion.div>
     )
 }

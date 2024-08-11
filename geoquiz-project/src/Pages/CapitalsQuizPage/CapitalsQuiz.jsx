@@ -94,6 +94,12 @@ export const CapitalsQuiz = () => {
     }
   }, [showResult, countries]);
 
+  useEffect(() => {
+    if (showResult) {
+      saveQuizResult(result.correctAnswers, questions.length);
+    }
+  }, [showResult, result.correctAnswers, questions.length]);
+
   if (isLoading) {
     return <div>Loading...</div>;
   }
@@ -125,9 +131,12 @@ export const CapitalsQuiz = () => {
       setCurrentQuestion((prev) => prev + 1);
     } else {
       setShowResult(true);
-      saveQuizResult(result.correctAnswers, questions.length);
     }
   }
+
+  
+
+  
 
   const onTryAgain = () => {
     setResult(resultInitialState);

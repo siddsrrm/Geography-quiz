@@ -91,6 +91,12 @@ export const FlagsQuiz = () => {
     }
   }, [showResult, countries]);
 
+  useEffect(() => {
+    if (showResult) {
+      saveQuizResult(result.correctAnswers, questions.length);
+    }
+  }, [showResult, result.correctAnswers, questions.length]);
+
   if (isLoading) {
     return <div>Loading...</div>;
   }
@@ -120,9 +126,9 @@ export const FlagsQuiz = () => {
 
     if (currentQuestion !== questions.length - 1) {
       setCurrentQuestion((prev) => prev + 1);
-    } else {
+    } 
+    else {
       setShowResult(true);
-      saveQuizResult(result.correctAnswers, questions.length);
     }
   }
 
