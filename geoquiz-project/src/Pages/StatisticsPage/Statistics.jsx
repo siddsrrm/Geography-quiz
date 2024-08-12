@@ -11,6 +11,7 @@ export const Statistics = () => {
     const [capitalPercentage, setCapitalPercentage] = useState(0);
     const [flagPercentage, setFlagPercentage] = useState(0);
 
+    // Fetching quiz results from backend
     useEffect(() => {
         const fetchResults = async () => {
             try {
@@ -25,22 +26,26 @@ export const Statistics = () => {
         fetchResults();
     }, []);
 
+    // Calculate percentage scores for capitals and flags quiz
     useEffect(() => {
         const calculatePercentage = (quizResults, setPercentage) => {
             if (quizResults.length > 0) {
                 let totalScore = 0;
                 let totalPossible = 0;
 
+                // accumalate total score and possible score 
                 quizResults.forEach(result => {
                     totalScore += result.score;
                     totalPossible += result.total_questions;
                 });
-
+                
+                // calculates overall percentage
                 const overallPercentage = (totalScore / totalPossible) * 100;
                 setPercentage(overallPercentage);
             }
         };
 
+        // filters results based on quiz type for calculation
         const capitalResults = results.filter(result => result.quiz_type === 'capitals');
         const flagResults = results.filter(result => result.quiz_type === 'flags');
 
@@ -48,6 +53,7 @@ export const Statistics = () => {
         calculatePercentage(flagResults, setFlagPercentage);
     }, [results]);
 
+    // filters results based on quiz type for display
     const capitalResults = results.filter(result => result.quiz_type === 'capitals');
     const flagResults = results.filter(result => result.quiz_type === 'flags');
 

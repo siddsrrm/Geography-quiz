@@ -5,14 +5,17 @@ import { resultInitialState } from '../../constants';
 import { Link } from 'react-router-dom';
 import { useQuery } from 'react-query';
 
+// fetching countries from rest countries api
 const fetchCountries = async () => {
   const response = await fetch('https://restcountries.com/v3.1/all');
   const data = await response.json();
   
+   // filter out non-independent countries
   const officialCountries = data.filter(country => country.independent);
   return officialCountries;
 }
 
+// fisher-yates shuffle algorithim 
 const shuffleArray = (array) => {
     let shuffledArray = [...array];
     for (let i = shuffledArray.length - 1; i > 0; i--) {
@@ -22,14 +25,15 @@ const shuffleArray = (array) => {
     return shuffledArray;
   };
 
+// formats data from rest api into quiz questions
 const formatQuizData = (countries) => {
   const shuffledCountries = shuffleArray(countries);
-
+  // picks 3 random countries as wrong answers
   return shuffledCountries.map((country) => {
     const otherCountries = shuffleArray(
       countries.filter((c) => c.name.common !== country.name.common)
     ).slice(0, 3);
-
+    // shuffles answer choices
     const choices = shuffleArray([...otherCountries.map(c => c.name.common), country.name.common]);
 
     return {
@@ -37,9 +41,10 @@ const formatQuizData = (countries) => {
       choices: choices,
       correctAnswer: country.name.common,
     };
-  }).slice(0, 10);
+  }).slice(0, 10); // sets quiz at 10 questions
 }
 
+//function to save quiz results to backend
 const saveQuizResult = async(score, totalQuestions) => {
   try {
     const response = await fetch('http://localhost:5000/api/results/', {
@@ -47,6 +52,7 @@ const saveQuizResult = async(score, totalQuestions) => {
       headers: {
         'Content-Type' : 'application/json',
       },
+      // converts quiz data into JSON string
       body: JSON.stringify({
         quiz_type: 'flags',
         score: score,
@@ -75,22 +81,26 @@ export const FlagsQuiz = () => {
   const [showResult, setShowResult] = useState(false);
   const [questions, setQuestions] = useState([]);
 
+  // fetch data using react-query
   const { data: countries, isLoading, error } = useQuery('countries', fetchCountries, {
     staleTime: 60000,
   });
 
+   // formats quiz data when data is available
   useEffect(() => {
     if (countries) {
       setQuestions(formatQuizData(countries));
     }
   }, [countries]);
 
+  // Refresh quiz questions when quiz is completed 
   useEffect(() => {
     if (showResult) {
       setQuestions(formatQuizData(countries));
     }
   }, [showResult, countries]);
 
+  // saves quiz result when quiz is completed
   useEffect(() => {
     if (showResult) {
       saveQuizResult(result.correctAnswers, questions.length);
@@ -105,6 +115,7 @@ export const FlagsQuiz = () => {
     return <div>Error Loading Data</div>;
   }
 
+  // registers answer selection
   const onAnswerClick = (selectedAnswer, index) => {
     if (isAnswered) {
       return;
@@ -115,10 +126,12 @@ export const FlagsQuiz = () => {
     setAnswer(selectedAnswer === questions[currentQuestion].correctAnswer);
   }
 
+  // handles moving to next question or finishing quiz
   const onClickNext = () => {
     setAnswerIndex(null);
     setIsAnswered(false);
 
+    // updates correct answer count
     setResult((prev) => ({
       ...prev,
       correctAnswers: answer ? prev.correctAnswers + 1 : prev.correctAnswers,
@@ -132,6 +145,7 @@ export const FlagsQuiz = () => {
     }
   }
 
+  // handles restarting of quiz
   const onTryAgain = () => {
     setResult(resultInitialState);
     setShowResult(false);

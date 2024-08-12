@@ -17,11 +17,10 @@ ENV/
 *.njsproj
 *.sln
 
-# macOS
-.DS_Store
 
 # Windows
 Thumbs.db
+
 
 # Log files
 *.log
@@ -35,3 +34,6 @@ build/
 
 # Environment variables
 .env
+
+#flask
+instance/quiz_results.db
