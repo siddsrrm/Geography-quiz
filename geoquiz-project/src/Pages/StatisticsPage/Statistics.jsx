@@ -3,7 +3,7 @@ import { BackArrow } from '../../Components/BackArrow/BackArrow';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import styles from "./Statistics.module.css";
-import { CircularProgressbar } from 'react-circular-progressbar';
+import { CircularProgressbar, buildStyles } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
 
 export const Statistics = () => {
@@ -67,7 +67,14 @@ export const Statistics = () => {
                     <div className={styles.titlecontainer}>
                         <h1 className={styles.title}>Capital Quiz Results</h1>
                         <div className={styles.progressbar}>
-                            <CircularProgressbar value={capitalPercentage} text={`${Math.round(capitalPercentage)}%`} />
+                            <CircularProgressbar 
+                                value={capitalPercentage} 
+                                text={`${Math.round(capitalPercentage)}%`} 
+                                styles={buildStyles({
+                                    textColor: 'black',
+                                    pathColor: '#E06868',
+                                })}
+                            />
                         </div>
                     </div>
 
@@ -86,7 +93,14 @@ export const Statistics = () => {
                     <div className={styles.titlecontainer}>
                         <h1 className={styles.title}>Flag Quiz Results</h1>
                         <div className={styles.progressbar}>
-                            <CircularProgressbar value={flagPercentage} text={`${Math.round(flagPercentage)}%`} />
+                            <CircularProgressbar 
+                                value={flagPercentage} 
+                                text={`${Math.round(flagPercentage)}%`} 
+                                styles={buildStyles({
+                                    textColor: 'black',
+                                    pathColor: '#E06868',
+                                })}
+                                />
                         </div>
                     </div>
 
